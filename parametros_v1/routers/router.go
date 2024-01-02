@@ -45,24 +45,6 @@ func init() {
 				&controllers.PeriodoController{},
 			),
 		),
-
-		beego.NSNamespace("/correo",
-			beego.NSInclude(
-				&controllers.CorreoController{},
-			),
-		),
-
-		beego.NSNamespace("/contacto",
-			beego.NSInclude(
-				&controllers.ContactoController{},
-			),
-		),
-
-		beego.NSNamespace("/telefono",
-			beego.NSInclude(
-				&controllers.TelefonoController{},
-			),
-		),
 	)
 	beego.AddNamespace(ns)
 }
