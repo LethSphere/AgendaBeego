@@ -1,0 +1,12 @@
+lastupdate.tmp
+.vscode/
+agenda_v1
+main
+.scannerwork/
+swagger/**
+!swagger/swagger.json
+!swagger/swagger.yml
+*.env
+*.exe
+*.tmp
+*.zip

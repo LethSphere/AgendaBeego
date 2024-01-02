@@ -1,0 +1,419 @@
+swagger: "2.0"
+info:
+  title: beego Test API
+  description: beego has a very cool tools to autogenerate documents for your API
+  version: 1.0.0
+  termsOfService: http://beego.me/
+  contact:
+    email: astaxie@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /v1
+paths:
+  /contacto/:
+    get:
+      tags:
+      - contacto
+      description: get Contacto
+      operationId: ContactoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Contacto'
+        "403":
+          description: ""
+    post:
+      tags:
+      - contacto
+      description: create Contacto
+      operationId: ContactoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Contacto content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Contacto'
+      responses:
+        "201":
+          description: '{int} models.Contacto'
+        "403":
+          description: body is empty
+  /contacto/{id}:
+    get:
+      tags:
+      - contacto
+      description: get Contacto by id
+      operationId: ContactoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Contacto'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - contacto
+      description: update the Contacto
+      operationId: ContactoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Contacto content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Contacto'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Contacto'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - contacto
+      description: delete the Contacto
+      operationId: ContactoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /correo/:
+    get:
+      tags:
+      - correo
+      description: get Correo
+      operationId: CorreoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Correo'
+        "403":
+          description: ""
+    post:
+      tags:
+      - correo
+      description: create Correo
+      operationId: CorreoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Correo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Correo'
+      responses:
+        "201":
+          description: '{int} models.Correo'
+        "403":
+          description: body is empty
+  /correo/{id}:
+    get:
+      tags:
+      - correo
+      description: get Correo by id
+      operationId: CorreoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Correo'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - correo
+      description: update the Correo
+      operationId: CorreoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Correo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Correo'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Correo'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - correo
+      description: delete the Correo
+      operationId: CorreoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /telefono/:
+    get:
+      tags:
+      - telefono
+      description: get Telefono
+      operationId: TelefonoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Telefono'
+        "403":
+          description: ""
+    post:
+      tags:
+      - telefono
+      description: create Telefono
+      operationId: TelefonoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Telefono content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Telefono'
+      responses:
+        "201":
+          description: '{int} models.Telefono'
+        "403":
+          description: body is empty
+  /telefono/{id}:
+    get:
+      tags:
+      - telefono
+      description: get Telefono by id
+      operationId: TelefonoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Telefono'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - telefono
+      description: update the Telefono
+      operationId: TelefonoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Telefono content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Telefono'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Telefono'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - telefono
+      description: delete the Telefono
+      operationId: TelefonoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+definitions:
+  models.Contacto:
+    title: Contacto
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Direccion:
+        type: string
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      Nombre:
+        type: string
+      NumeroDocumento:
+        type: string
+  models.Correo:
+    title: Correo
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      ContactoId:
+        $ref: '#/definitions/models.Contacto'
+      Email:
+        type: string
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+  models.Telefono:
+    title: Telefono
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      ContactoId:
+        $ref: '#/definitions/models.Contacto'
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      Telefono:
+        type: string
+tags:
+- name: contacto
+  description: |
+    ContactoController operations for Contacto
+- name: telefono
+  description: |
+    TelefonoController operations for Telefono
+- name: correo
+  description: |
+    CorreoController operations for Correo
