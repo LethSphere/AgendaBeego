@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/udistrital/agenda_v1/parametros_v1/models"
+	"github.com/udistrital/utils_oas/time_bogota"
 	"strconv"
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
 )
 
 // ParametroController operations for Parametro
@@ -33,15 +35,21 @@ func (c *ParametroController) URLMapping() {
 // @router / [post]
 func (c *ParametroController) Post() {
 	var v models.Parametro
+	v.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	v.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if _, err := models.AddParametro(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
+			c.Data["json"] = map[string]interface{}{"Success": true, "Status": "201", "Message": "Registration successful", "Data": v}
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			c.Data["message"] = "Error service POST: The request contains an incorrect data type or an invalid parameter"
+			c.Abort("400")
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["message"] = "Error service POST: The request contains an incorrect data type or an invalid parameter"
+		c.Abort("400")
 	}
 	c.ServeJSON()
 }
@@ -58,9 +66,11 @@ func (c *ParametroController) GetOne() {
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetParametroById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["message"] = "Error service GETONE: The request contains an incorrect parameter or no record exists"
+		c.Abort("404")
 	} else {
-		c.Data["json"] = v
+		c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Request successful", "Data": v}
 	}
 	c.ServeJSON()
 }
@@ -121,9 +131,11 @@ func (c *ParametroController) GetAll() {
 
 	l, err := models.GetAllParametro(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["message"] = "Error service GETALL: The request contains an incorrect parameter or no record exists"
+		c.Abort("404")
 	} else {
-		c.Data["json"] = l
+		c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Request successful", "Data": l}
 	}
 	c.ServeJSON()
 }
@@ -141,13 +153,19 @@ func (c *ParametroController) Put() {
 	id, _ := strconv.Atoi(idStr)
 	v := models.Parametro{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
+		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
 		if err := models.UpdateParametroById(&v); err == nil {
-			c.Data["json"] = "OK"
+			c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Update successful", "Data": v}
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			c.Data["message"] = "Error service PUT: The request contains an incorrect parameter or invalid parameter"
+			c.Abort("400")
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["message"] = "Error service PUT: The request contains an incorrect parameter or invalid parameter"
+		c.Abort("400")
 	}
 	c.ServeJSON()
 }
@@ -163,9 +181,12 @@ func (c *ParametroController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	if err := models.DeleteParametro(id); err == nil {
-		c.Data["json"] = "OK"
+		d := map[string]interface{}{"id": id}
+		c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Delete successful", "Data": d}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["message"] = "Error service Delete: The request contains an incorrect parameter or invalid parameter"
+		c.Abort("404")
 	}
 	c.ServeJSON()
 }

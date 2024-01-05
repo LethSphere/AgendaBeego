@@ -6,17 +6,19 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/udistrital/utils_oas/time_bogota"
+
 	"github.com/astaxie/beego/orm"
 )
 
 type Contacto struct {
-	Id                int       `orm:"column(id);pk;auto"`
-	Nombre            string    `orm:"column(nombre)"`
-	NumeroDocumento   string    `orm:"column(numero_documento)"`
-	Direccion         string    `orm:"column(direccion)"`
+	Id                int    `orm:"column(id);pk;auto"`
+	Nombre            string `orm:"column(nombre)"`
+	NumeroDocumento   string `orm:"column(numero_documento)"`
+	Direccion         string `orm:"column(direccion)"`
 	FechaCreacion     string `orm:"column(fecha_creacion);type(timestamp with time zone)"`
 	FechaModificacion string `orm:"column(fecha_modificacion);type(timestamp with time zone)"`
-	Activo            bool      `orm:"column(activo)"`
+	Activo            bool   `orm:"column(activo)"`
 }
 
 func (t *Contacto) TableName() string {
@@ -131,6 +133,7 @@ func UpdateContactoById(m *Contacto) (err error) {
 	v := Contacto{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
+		m.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
 		var num int64
 		if num, err = o.Update(m); err == nil {
 			fmt.Println("Number of records updated in database:", num)
